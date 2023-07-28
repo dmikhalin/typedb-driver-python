@@ -36,7 +36,7 @@ class TypeDBClientException(Exception):
         self.__cause__ = cause
         super(TypeDBClientException, self).__init__(self.message)
 
-    @staticmethod
+    # @staticmethod
     # def of_rpc(rpc_error: Union[RpcError, Call]) -> TypeDBClientException:
     #     if rpc_error.code() is StatusCode.UNIMPLEMENTED:
     #         return TypeDBClientException(msg=RPC_METHOD_UNAVAILABLE, cause=rpc_error.details())
