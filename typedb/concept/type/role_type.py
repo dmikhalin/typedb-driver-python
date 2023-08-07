@@ -26,6 +26,7 @@ from typedb.api.concept.type.role_type import RoleType
 from typedb.common.label import Label
 from typedb.common.streamer import Streamer
 from typedb.common.transitivity import Transitivity
+from typedb.concept import concept_factory
 from typedb.concept.thing import relation
 from typedb.concept.thing.thing import _Thing
 from typedb.concept.type import relation_type
@@ -92,15 +93,15 @@ class _RoleType(_Type, RoleType):
                             concept_iterator_next))
 
     def get_player_types(self, transaction: _Transaction) -> Iterator[Any]:
-        return map(_ThingType.of,
+        return map(concept_factory.thing_type_of,
                    Streamer(role_type_get_player_types(transaction.native_object, self.native_object,
                                                        Transitivity.TRANSITIVE.value),
                             concept_iterator_next))
 
     def get_player_types_explicit(self, transaction: _Transaction) -> Iterator[Any]:
-        return map(_ThingType.of, Streamer(role_type_get_player_types(transaction.native_object, self.native_object,
-                                                                      Transitivity.EXPLICIT.value),
-                                           concept_iterator_next))
+        return map(concept_factory.thing_type_of, Streamer(role_type_get_player_types(transaction.native_object, self.native_object,
+                                                                                        Transitivity.EXPLICIT.value),
+                                                             concept_iterator_next))
 
     def get_relation_instances(self, transaction: _Transaction) -> Iterator[_Relation]:
         return map(relation._Relation,
